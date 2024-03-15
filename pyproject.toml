@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "pastemc"
+version = "0.1.0"
+description = ""
+authors = ["SerinaNya <34389622+SerinaNya@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+python-ulid = "^2.2.0"
+httpx = {extras = ["http2"], version = "^0.27.0"}
+fastapi = "^0.110.0"
+uvicorn = {extras = ["standard"], version = "^0.28.0"}
+pyyaml = "^6.0.1"
+pydantic = "^2.6.3"
+miniopy-async = "^1.19"
+loguru = "^0.7.2"
+rich = "^13.7.1"
+python-multipart = "^0.0.9"
+
+
+[[tool.poetry.source]]
+name = "mirrors"
+url = "https://mirror.sjtu.edu.cn/pypi/web/simple"
+priority = "default"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

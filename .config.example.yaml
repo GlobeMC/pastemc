@@ -1,0 +1,9 @@
+s3:
+  access_key: <ACCESS_KEY>
+  secret_key: <SECRET_KEY>
+  region: cn-shanghai
+  endpoint: xxxx.cn-shanghai.xxxx.xxx
+  bucket: pastemc
+  subpath: /
+  secure: true
+  # public_endpoint: https://oss-public-access.example.com/pastemc
