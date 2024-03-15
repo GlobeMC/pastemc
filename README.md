@@ -6,6 +6,8 @@
 
 ## Launch
 
+Rename `.config.example.yaml` to `.config.yaml`, then,
+
 Dev Launch:
 
 ``` bash
