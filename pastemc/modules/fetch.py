@@ -1,9 +1,8 @@
 from typing import Annotated
 
 from annotated_types import Len
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
-from pydantic import TypeAdapter
 
 from pastemc.models.common import FileObjectResponse, ObjectNotFound
 from pastemc.utils.s3api import list_objects

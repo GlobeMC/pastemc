@@ -2,14 +2,13 @@ import ssl
 from tempfile import SpooledTemporaryFile
 
 import httpx
+from miniopy_async import Minio
+from ulid import ULID
+
 from pastemc.models.minio import ObjectMetadata
 from pastemc.models.settings import SETTINGS
-from ulid import ULID
-from miniopy_async import Minio
 
-oss = Minio(
-    **SETTINGS.s3.model_dump(exclude=["bucket", "subpath", "public_endpoint"])
-)
+oss = Minio(**SETTINGS.s3.model_dump(exclude=["bucket", "subpath", "public_endpoint"]))
 
 verify_context = httpx.create_ssl_context(
     verify=ssl.create_default_context(), http2=True
