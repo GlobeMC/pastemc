@@ -22,7 +22,7 @@ app_info = AppInfo()
 
 app = FastAPI(
     **app_info.model_dump(),
-    servers=[{"url": "http://localhost:8000", "description": "Dev"}],
+    servers=[{"url": "http://localhost:8056", "description": "Dev"}],
 )
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
