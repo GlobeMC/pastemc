@@ -1,9 +1,14 @@
 from datetime import datetime
-from importlib import metadata
 from typing import Annotated
 
 from annotated_types import Len
-from pydantic import AnyHttpUrl, BaseModel, BeforeValidator, Field, computed_field
+from pydantic import (
+    AnyHttpUrl,
+    BaseModel,
+    BeforeValidator,
+    Field,
+    validate_call,
+)
 from ulid import ULID
 
 from pastemc.utils.s3api import get_object_url
@@ -11,7 +16,7 @@ from pastemc.utils.s3api import get_object_url
 FileId = Annotated[
     str,
     BeforeValidator(lambda v: str(v)),
-    Len(26),
+    Len(26, 26),
     Field(
         examples=["01HRKVWPKNYNQKB5F209DZ85B7"], description="ULID of the uploaded file"
     ),
@@ -41,10 +46,15 @@ class FileObjectResponse(BaseModel):
     file_id: FileId
     url: FileUrl
     last_modified: Annotated[
-        datetime, Field(examples=["2024-03-10T17:42:50.229000+08:00"])
+        datetime,
+        Field(
+            examples=["2024-03-10T17:42:50.229000+08:00"],
+            description="ISO 8601 datetime with server timezone",
+        ),
     ]
 
     @classmethod
+    @validate_call
     def public(cls, file_id: FileId):
         return cls(
             file_id=file_id,

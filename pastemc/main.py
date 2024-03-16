@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 class AppInfo(BaseModel):
     title: str = __package__
+    description: str = "paste, share, even analyze: The pastebin design for Minecraft"
     version: str = metadata.version(__package__)
     license_info: dict = {
         "name": "GNU Affero General Public License v3.0 or later",

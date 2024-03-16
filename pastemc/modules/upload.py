@@ -1,5 +1,4 @@
-from fastapi import APIRouter, File, Form, UploadFile, status
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, File, Form, Response, UploadFile, status
 from loguru import logger
 
 from pastemc.models.common import FileObjectResponse
@@ -16,7 +15,6 @@ router = APIRouter(tags=["File Operations"])
     responses={
         201: {
             "model": FileObjectResponse,
-            "description": "`file_id` of the uploaded file",
             "headers": {
                 "Location": {
                     "$ref": "#/components/schemas/FileObjectResponse/properties/url"
@@ -26,6 +24,7 @@ router = APIRouter(tags=["File Operations"])
     },
 )
 async def upload_file(
+    response: Response,
     file: UploadFile = File(description="the (Minecraft log) file"),
     format_type: str = Form(
         description="the format of this file, used for highlight rendering"
@@ -51,8 +50,6 @@ async def upload_file(
     logger.info(f"file uploaded, {file.filename=}, {file_id=}, {length=}")
 
     # return 201 created
-    return JSONResponse(
-        FileObjectResponse.public(file_id=file_id).model_dump(),
-        status_code=status.HTTP_201_CREATED,
-        headers={"Location": get_object_url(file_id)},
-    )
+    response.status_code = status.HTTP_201_CREATED
+    response.headers["Location"] = get_object_url(file_id)
+    return FileObjectResponse.public(file_id=file_id)
